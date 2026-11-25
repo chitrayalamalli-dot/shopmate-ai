@@ -1,0 +1,10 @@
+# System & cache
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+
+# Local Python backend artifacts (not needed for static PWA)
+app.py
+shop.db
+generate_icons.py

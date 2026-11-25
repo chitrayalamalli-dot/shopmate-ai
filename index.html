@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0d0f14">
+  <meta name="description" content="ShopMate AI – Modern AI-Powered Shopping Assistant Chatbot with Promax UI/UX">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ShopMate AI">
+  <meta name="application-name" content="ShopMate AI">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512.png">
+  <title>ShopMate AI – Smart Shopping Assistant</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="theme-dark">
+  <div class="app-container" id="appContainer">
+
+    <!-- Mobile Overlay for Sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+              <path d="M3 6h18"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            <span class="sparkle-badge">✦</span>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">ShopMate <span class="gradient-text">AI</span></span>
+            <span class="brand-subtitle">Smart Shopping Assistant</span>
+          </div>
+        </div>
+        <button class="icon-btn close-sidebar-btn" id="closeSidebarBtn" title="Close sidebar" aria-label="Close sidebar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- New Chat Button -->
+      <div class="sidebar-action-wrap">
+        <button class="new-chat-btn" id="newChatBtn">
+          <span class="plus-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </span>
+          <span class="btn-text">New Shopping Chat</span>
+          <span class="shortcut-tag">Ctrl+K</span>
+        </button>
+      </div>
+
+      <!-- Search Conversations Input -->
+      <div class="sidebar-search">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchHistoryInput" placeholder="Search conversations..." autocomplete="off">
+        <button class="clear-search-btn" id="clearSearchBtn" title="Clear search">✕</button>
+      </div>
+
+      <!-- Chat History Container with Groups -->
+      <div class="chat-history-container" id="chatHistoryContainer">
+        <!-- Dynamically rendered: Today, Yesterday, Previous Days -->
+      </div>
+
+      <!-- Sidebar Bottom Navigation & Profile -->
+      <div class="sidebar-footer">
+        <div class="footer-actions">
+          <button class="footer-btn" id="settingsBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            <span>Settings</span>
+          </button>
+          <button class="footer-btn" id="helpFaqBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+            <span>Help & FAQs</span>
+          </button>
+        </div>
+
+        <!-- User Profile Card -->
+        <div class="user-profile">
+          <div class="user-avatar">
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%236366f1'/><text x='16' y='21' font-size='15' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='white'>SM</text></svg>" alt="User Avatar">
+            <span class="online-indicator"></span>
+          </div>
+          <div class="user-info">
+            <span class="user-name">Smart Shopper</span>
+            <span class="user-status">ShopMate Plus ✦</span>
+          </div>
+          <button class="theme-quick-btn" id="themeQuickToggle" title="Toggle Dark/Light Mode">
+            <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CHAT APP AREA -->
+    <main class="main-content">
+      <!-- Top Navigation Bar -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="icon-btn toggle-sidebar-btn" id="toggleSidebarBtn" title="Toggle Sidebar" aria-label="Toggle Sidebar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="9" y1="3" x2="9" y2="21"></line>
+            </svg>
+          </button>
+          <div class="chat-title-wrap">
+            <h2 class="active-chat-title" id="activeChatTitle">ShopMate AI</h2>
+            <span class="active-chat-badge">AI Assistant · Ready</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Install PWA App Button (shown when installable) -->
+          <button class="install-pwa-btn" id="headerInstallBtn" style="display: none;" title="Install ShopMate AI as an App">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span class="install-label">Install App</span>
+          </button>
+
+          <!-- Cart Drawer Button -->
+          <button class="cart-trigger-btn" id="openCartBtn" title="View Shopping Cart">
+            <span class="cart-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="21" r="1"></circle>
+                <circle cx="19" cy="21" r="1"></circle>
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+              </svg>
+            </span>
+            <span class="cart-label">Cart</span>
+            <span class="cart-count-badge" id="cartCountBadge">0</span>
+          </button>
+
+          <!-- New Chat Mobile/Header Shortcut -->
+          <button class="icon-btn header-new-chat-btn" id="headerNewChatBtn" title="New Chat">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Offline Status Banner -->
+      <div class="offline-banner" id="offlineBanner" style="display: none;">
+        <span class="offline-dot"></span>
+        <span class="offline-text">You are offline. Cached chats &amp; catalog are ready. Live store search links require internet.</span>
+      </div>
+
+      <!-- Scrollable Chat Body -->
+      <div class="chat-viewport" id="chatViewport">
+        <div class="chat-messages-container" id="chatMessages">
+
+          <!-- WELCOME SCREEN (Shown when conversation is empty) -->
+          <div class="welcome-screen" id="welcomeScreen">
+            <div class="welcome-hero">
+              <div class="welcome-avatar-glow">
+                <div class="welcome-avatar">
+                  <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+                    <path d="M3 6h18"/>
+                    <path d="M16 10a4 4 0 0 1-8 0"/>
+                  </svg>
+                </div>
+              </div>
+              <h1 class="welcome-title">Hello! I'm <span class="gradient-text">ShopMate AI</span></h1>
+              <p class="welcome-subtitle">
+                Your smart shopping companion. Tell me what you're looking for, set your budget, or attach a photo, and I'll find it instantly.
+              </p>
+            </div>
+
+            <!-- Welcome Suggestion Cards -->
+            <div class="welcome-cards-grid">
+              <div class="suggestion-card" data-prompt="Find trending products across top categories">
+                <div class="card-icon-box blue-grad">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </div>
+                <div class="card-content">
+                  <h3>Find Products</h3>
+                  <p>Discover bestsellers, top-rated products & curated category catalogs.</p>
+                </div>
+                <span class="card-arrow">→</span>
+              </div>
+
+              <div class="suggestion-card" data-prompt="I want to shop within a budget under ₹1500">
+                <div class="card-icon-box emerald-grad">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  </svg>
+                </div>
+                <div class="card-content">
+                  <h3>Shop on a Budget</h3>
+                  <p>Filter great value items under ₹500, ₹1000, ₹2000 or custom price.</p>
+                </div>
+                <span class="card-arrow">→</span>
+              </div>
+
+              <div class="suggestion-card" data-prompt="Compare wireless earbuds and bluetooth headphones with pros and cons">
+                <div class="card-icon-box purple-grad">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 3 21 3 21 8"></polyline>
+                    <line x1="4" y1="20" x2="21" y2="3"></line>
+                    <polyline points="21 16 21 21 16 21"></polyline>
+                    <line x1="15" y1="15" x2="21" y2="21"></line>
+                    <line x1="4" y1="4" x2="9" y2="9"></line>
+                  </svg>
+                </div>
+                <div class="card-content">
+                  <h3>Compare Products</h3>
+                  <p>Side-by-side spec comparison, budget analysis & smart picks.</p>
+                </div>
+                <span class="card-arrow">→</span>
+              </div>
+
+              <div class="suggestion-card" data-prompt="Show me trending fashion, stylish outfits and shoes">
+                <div class="card-icon-box pink-grad">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path>
+                  </svg>
+                </div>
+                <div class="card-content">
+                  <h3>Find Fashion</h3>
+                  <p>Sneakers, oversized hoodies, dresses, jeans & accessories.</p>
+                </div>
+                <span class="card-arrow">→</span>
+              </div>
+
+              <div class="suggestion-card" data-prompt="Show me best electronics gadgets, earbuds and smartwatches">
+                <div class="card-icon-box amber-grad">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                  </svg>
+                </div>
+                <div class="card-content">
+                  <h3>Electronics</h3>
+                  <p>Smartwatches, noise-canceling earbuds, power banks & speakers.</p>
+                </div>
+                <span class="card-arrow">→</span>
+              </div>
+
+              <div class="suggestion-card" id="photoTriggerCard">
+                <div class="card-icon-box cyan-grad">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                </div>
+                <div class="card-content">
+                  <h3>Find Similar from Photo</h3>
+                  <p>Attach a photo of any outfit or product to search & match styles.</p>
+                </div>
+                <span class="card-arrow">→</span>
+              </div>
+            </div>
+
+            <!-- Integrated Store Direct Links Banner -->
+            <div class="supported-stores-bar">
+              <span class="stores-label">Search Across Major Stores:</span>
+              <div class="stores-badges">
+                <span class="store-pill amazon">Amazon</span>
+                <span class="store-pill flipkart">Flipkart</span>
+                <span class="store-pill myntra">Myntra</span>
+                <span class="store-pill ajio">Ajio</span>
+                <span class="store-pill meesho">Meesho</span>
+              </div>
+            </div>
+          </div>
+          <!-- End Welcome Screen -->
+
+          <!-- Dynamic Chat Message Stream rendered here -->
+          <div class="messages-flow" id="messagesFlow"></div>
+
+          <!-- Typing Indicator -->
+          <div class="typing-bubble-row" id="typingIndicator" style="display: none;">
+            <div class="bot-avatar-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+                <path d="M3 6h18"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+            </div>
+            <div class="typing-card">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-label">ShopMate AI is finding the best picks...</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- BOTTOM INPUT AREA -->
+      <footer class="bottom-container">
+        <!-- Floating Contextual Quick Suggestion Chips (dynamic) -->
+        <div class="quick-chips-wrapper" id="quickChipsWrapper">
+          <div class="quick-chips-container" id="quickChipsContainer"></div>
+        </div>
+
+        <!-- Attachment Preview Bar -->
+        <div class="attachment-preview-bar" id="attachmentPreviewBar" style="display: none;">
+          <div class="attachment-thumb-wrap">
+            <img id="attachmentPreviewImg" src="" alt="Attached preview">
+            <button class="remove-attachment-btn" id="removeAttachmentBtn" title="Remove image">✕</button>
+          </div>
+          <div class="attachment-info">
+            <span class="attachment-name" id="attachmentName">photo.jpg</span>
+            <span class="attachment-sub">Photo ready to send with your message</span>
+          </div>
+        </div>
+
+        <!-- Smart Chat Input Form -->
+        <div class="input-card">
+          <form id="chatForm" autocomplete="off">
+            <!-- Hidden Image File Input -->
+            <input type="file" id="imageFileInput" accept="image/png, image/jpeg, image/jpg, image/webp" style="display: none;">
+
+            <!-- Left Upload / Camera Button -->
+            <button type="button" class="input-tool-btn" id="attachImageBtn" title="Upload product or outfit photo (JPG, PNG, WEBP)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+            </button>
+
+            <!-- Textarea for message -->
+            <div class="textarea-wrapper">
+              <textarea
+                id="messageInput"
+                rows="1"
+                placeholder="Ask anything about products, prices or shopping..."
+                maxlength="600"
+                aria-label="Shopping query"
+              ></textarea>
+            </div>
+
+            <!-- Clear input button (shows when text typed) -->
+            <button type="button" class="input-clear-btn" id="clearInputBtn" title="Clear text" style="display: none;">
+              ✕
+            </button>
+
+            <!-- Send Button -->
+            <button type="submit" class="send-btn" id="sendBtn" title="Send message" disabled>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </form>
+        </div>
+
+        <!-- Disclaimer Caption -->
+        <div class="input-disclaimer">
+          ShopMate AI can search products, compare prices across stores & manage your cart. All links open directly in official retailer apps.
+        </div>
+      </footer>
+    </main>
+
+    <!-- RIGHT/OFF-CANVAS SHOPPING CART DRAWER -->
+    <div class="cart-backdrop" id="cartBackdrop"></div>
+    <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+      <div class="cart-drawer-header">
+        <div class="cart-head-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8" cy="21" r="1"></circle>
+            <circle cx="19" cy="21" r="1"></circle>
+            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+          </svg>
+          <h2>Shopping Cart</h2>
+          <span class="cart-items-tag" id="cartDrawerItemCount">0 items</span>
+        </div>
+        <button class="icon-btn close-cart-btn" id="closeCartBtn" title="Close cart" aria-label="Close cart">✕</button>
+      </div>
+
+      <div class="cart-drawer-body" id="cartDrawerItems">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div class="cart-drawer-footer">
+        <div class="cart-bill-row">
+          <span class="bill-label">Delivery</span>
+          <span class="bill-value free-text">FREE</span>
+        </div>
+        <div class="cart-bill-row total-row">
+          <span class="bill-label">Grand Total</span>
+          <span class="bill-amount" id="cartDrawerTotal">₹0</span>
+        </div>
+        <button class="checkout-btn" id="cartCheckoutBtn">
+          <span>Proceed to Checkout</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+        <button class="clear-cart-btn" id="cartClearBtn">Empty Cart</button>
+      </div>
+    </aside>
+
+    <!-- SETTINGS MODAL -->
+    <div class="modal-backdrop" id="settingsModal" style="display: none;">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div class="modal-title-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            <h3>Settings & Preferences</h3>
+          </div>
+          <button class="icon-btn close-modal-btn" id="closeSettingsModalBtn">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <!-- Theme Switcher -->
+          <div class="setting-item">
+            <div class="setting-meta">
+              <span class="setting-title">Appearance Theme</span>
+              <span class="setting-desc">Switch between deep dark mode and clean light theme</span>
+            </div>
+            <div class="theme-segment">
+              <button class="theme-seg-btn active" data-theme="dark" id="themeDarkBtn">Dark</button>
+              <button class="theme-seg-btn" data-theme="light" id="themeLightBtn">Light</button>
+            </div>
+          </div>
+
+          <!-- Install App on Mobile / Desktop -->
+          <div class="setting-item" id="installSettingItem">
+            <div class="setting-meta">
+              <span class="setting-title">Install Mobile App</span>
+              <span class="setting-desc">Install ShopMate AI to your home screen for offline standalone use</span>
+            </div>
+            <button class="btn-secondary" id="modalInstallBtn">Install App</button>
+          </div>
+
+          <!-- Storage Statistics -->
+          <div class="setting-item">
+            <div class="setting-meta">
+              <span class="setting-title">Local Storage & History</span>
+              <span class="setting-desc" id="storageSummaryText">0 conversations stored safely on your device</span>
+            </div>
+            <div class="setting-actions-inline">
+              <button class="btn-secondary" id="exportHistoryBtn">Export JSON</button>
+            </div>
+          </div>
+
+          <!-- Cross-Device Sync Explanation Note -->
+          <div class="setting-note-box">
+            <strong>🔒 Device-Local Privacy Note:</strong>
+            <p>Your shopping conversations and cart are saved privately on this device via browser localStorage. Cross-device synchronization is not enabled because it requires a cloud backend database and user login account.</p>
+          </div>
+
+          <!-- Clear All Data with Danger styling -->
+          <div class="setting-item danger-item">
+            <div class="setting-meta">
+              <span class="setting-title">Clear All Chat History</span>
+              <span class="setting-desc">Permanently remove all saved conversations from localStorage</span>
+            </div>
+            <button class="btn-danger" id="clearAllHistoryBtn">Clear All</button>
+          </div>
+
+          <!-- About Application -->
+          <div class="setting-about-box">
+            <div class="about-head">
+              <span class="about-logo">🛍️</span>
+              <div>
+                <strong>ShopMate AI v2.5 (Promax Edition)</strong>
+                <p>Pure Client-Side Intelligent Shopping Assistant</p>
+              </div>
+            </div>
+            <p class="about-text">
+              Engineered with modern HTML5, CSS3, and JavaScript. Features contextual multi-turn conversation memory, instant product searches for Amazon, Flipkart, Myntra, Ajio, and Meesho, photo style matching, and built-in cart simulation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HELP & FAQ MODAL -->
+    <div class="modal-backdrop" id="helpModal" style="display: none;">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div class="modal-title-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+            <h3>ShopMate AI Help & FAQs</h3>
+          </div>
+          <button class="icon-btn close-modal-btn" id="closeHelpModalBtn">✕</button>
+        </div>
+        <div class="modal-body help-faq-body">
+          <div class="faq-accordion">
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>How do I search for products?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                Type what you need naturally in the chat box! For example: <em>"Show me running sneakers under ₹1500"</em> or <em>"Best wireless earbuds for gym"</em>. ShopMate will display catalog picks and instant links to Amazon, Flipkart, Myntra, and more.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>How does Image Search work?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                Click the image/camera icon next to the chat input to attach an outfit or product photo. You can add a description (e.g. "Find this dress under 2000") and ShopMate AI will generate style matching queries and shopping website cards.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>Can I compare products or ask for cheaper alternatives?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                Yes! ShopMate AI remembers your conversation context. If you just viewed smartwatches, simply say <em>"Show cheaper ones"</em> or <em>"Compare on Flipkart"</em> and it will tailor results automatically.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>What payment methods and return policies are accepted?</span>
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                We accept UPI, Credit/Debit cards, Net Banking, and Cash on Delivery. Returns are hassle-free within 7 days of delivery. Refunds are credited within 5-7 business days.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMAGE ENLARGEMENT / LIGHTBOX MODAL -->
+    <div class="lightbox-modal" id="imageLightbox" style="display: none;">
+      <div class="lightbox-content">
+        <button class="lightbox-close-btn" id="closeLightboxBtn">✕</button>
+        <img id="lightboxImg" src="" alt="Enlarged view">
+        <div class="lightbox-caption" id="lightboxCaption">Product Photo</div>
+      </div>
+    </div>
+
+    <!-- CHECKOUT DEMO MODAL -->
+    <div class="modal-backdrop" id="checkoutModal" style="display: none;">
+      <div class="modal-dialog checkout-dialog">
+        <div class="checkout-success-icon">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h2 class="checkout-title">Order Placed Successfully!</h2>
+        <p class="checkout-sub">Thank you for shopping with ShopMate AI. Your demo order is confirmed.</p>
+        
+        <div class="order-summary-card">
+          <div class="summary-line">
+            <span>Order ID:</span>
+            <strong id="confirmedOrderId">ORD-8921A</strong>
+          </div>
+          <div class="summary-line">
+            <span>Total Paid:</span>
+            <strong id="confirmedTotal">₹0</strong>
+          </div>
+          <div class="summary-line">
+            <span>Estimated Delivery:</span>
+            <span id="confirmedDate">3-5 business days</span>
+          </div>
+          <div class="summary-line">
+            <span>Payment Mode:</span>
+            <span>UPI / Card (Prepaid)</span>
+          </div>
+        </div>
+
+        <button class="btn-primary-block" id="closeCheckoutSuccessBtn">Continue Shopping</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SCRIPT -->
+  <script src="script.js"></script>
+</body>
+</html>
